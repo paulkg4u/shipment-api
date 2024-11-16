@@ -1,0 +1,13 @@
+# FastAPI app .gitignore
+
+# Ignore virtual environment files
+.venv/
+
+# Ignore IDE files
+.vscode/
+
+# Ignore bytecode files
+*.pyc
+
+#ENV file
+.env
