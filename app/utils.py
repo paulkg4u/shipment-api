@@ -3,6 +3,7 @@ import json
 import csv
 
 from app.schema import Shipment, Article, Weather
+from app.config import get_settings
 class ShipmentService:
 
     def __init__(self):
@@ -46,7 +47,7 @@ class ShipmentService:
             SKU=shipment_data["SKU"]
         )
 
-        weather = await self.weather_service.get_weather(shipment_data['receiver_address'].split(",")[1].strip())
+        weather = await self.weather_service.get_weather(shipment_data['receiver_address'].split(",")[1].strip().split(" ")[0])
 
         return Shipment(
             tracking_number=shipment_data["tracking_number"],
@@ -62,8 +63,26 @@ class ShipmentService:
 
 class WeatherService:
     def __init__(self):
-        self.base_url = "https://api.openweathermap.org/data/2.5/weather"
+        self.settings = get_settings()
+        self.base_url = "http://api.openweathermap.org/data/2.5/weather"
         self.cache = None
 
     async def get_weather(self, location: str) -> Weather:
-        return None
+        try:
+            response = requests.get(f"{self.base_url}?q={location}&appid={
+                                    self.settings.weather_api_key}")
+            if response.status_code == 200:
+
+                data = response.json()
+                return Weather(
+                    temperature=data["main"]["temp"],
+                    humidity=data["main"]["humidity"],
+                    condition=f"{data["weather"][0]["description"]
+                                 }({data["weather"][0]["description"]})",
+                    location=data["name"],
+                    timestamp=data["dt"]
+                )
+            else:
+                return None
+        except:
+            return None
