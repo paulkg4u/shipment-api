@@ -12,8 +12,10 @@
 
 .venv
 
-#readme
+# readme
 README.md
+
+
 .pytest_cache
 .venv
 tests

@@ -53,6 +53,8 @@ REDIS_HOST=localhost    # Uses localhost when Redis runs independently
 CSV_FILE_PATH=data/shipments.csv
 ```
 
+Add the Shipments data as csv to `data/shipments.csv`
+
 
 ## Running the Application
 
