@@ -11,8 +11,8 @@ class Settings(BaseSettings):
     weather_cache_ttl: int = 7200
     csv_file_path: str = "data/shipments.csv"
 
-    class Config(SettingsConfigDict):
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env")
+
 
 
 @lru_cache

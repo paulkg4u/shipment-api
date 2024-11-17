@@ -4,6 +4,7 @@ import csv
 
 from app.schema import Shipment, Article, Weather
 from app.config import get_settings
+from app.cache import WeatherCache
 class ShipmentService:
 
     def __init__(self):
@@ -65,23 +66,26 @@ class WeatherService:
     def __init__(self):
         self.settings = get_settings()
         self.base_url = "http://api.openweathermap.org/data/2.5/weather"
-        self.cache = None
+        self.cache = WeatherCache()
 
     async def get_weather(self, location: str) -> Weather:
+        if weather := self.cache.get(location):
+            return Weather(**weather)
         try:
             response = requests.get(f"{self.base_url}?q={location}&appid={
                                     self.settings.weather_api_key}")
             if response.status_code == 200:
 
                 data = response.json()
-                return Weather(
+                weather = Weather(
                     temperature=data["main"]["temp"],
                     humidity=data["main"]["humidity"],
-                    condition=f"{data["weather"][0]["description"]
-                                 }({data["weather"][0]["description"]})",
+                    condition=f"{data["weather"][0]["description"]}",
                     location=data["name"],
                     timestamp=data["dt"]
                 )
+                self.cache.set(location, weather.model_dump())
+                return weather
             else:
                 return None
         except:
