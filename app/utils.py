@@ -1,7 +1,7 @@
 import requests
-import json
 import csv
 from datetime import datetime
+import pycountry
 
 from app.schema import Shipment, Article, Weather
 from app.config import get_settings
@@ -14,6 +14,12 @@ class ShipmentService:
         self.weather_service = WeatherService()
         self.csv_file = self.settings.CSV_FILE_PATH
         self.shipments = []
+
+    def get_location(self, address):
+        postal_code = address.split(",")[1].strip().split(" ")[0].strip()
+        country_code = pycountry.countries.get(
+            name=address.split(",")[-1].strip()).alpha_2
+        return f"{postal_code},{country_code}"
 
     async def load_shipments(self):
         """
@@ -50,8 +56,8 @@ class ShipmentService:
             price=shipment_data["article_price"],
             SKU=shipment_data["SKU"]
         )
-
-        weather = await self.weather_service.get_weather(shipment_data['receiver_address'].split(",")[1].strip().split(" ")[0])
+        location = self.get_location(shipment_data["receiver_address"])
+        weather = await self.weather_service.get_weather(location)
         return Shipment(
             tracking_number=shipment_data["tracking_number"],
             carrier=shipment_data["carrier"],
