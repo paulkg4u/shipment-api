@@ -14,11 +14,12 @@ def test_root():
 def test_get_shipments():
     response = client.get("/shipments")
     assert response.status_code == 200
-    assert response.json() == {"message": "Get all shipments"}
+    assert isinstance(response.json(), list)
 
 
 def test_get_shipment():
     response = client.get("/shipments/TN12345680")
     assert response.status_code == 200
-    assert response.json() == {
-        "message": f"Get shipment with tracking number TN12345680"}
+    data = response.json()
+    assert data["tracking_number"] == "TN12345680"
+    assert 'article' in data
