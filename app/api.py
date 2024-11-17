@@ -23,17 +23,12 @@ async def root():
     description="Get all shipments"
 )
 async def get_shipments():
-    try:
-        shipments = await ShipmentService().get_all_shipments()
-        return shipments
-    except Exception as e:
-        raise e
-
+    shipments = await ShipmentService().get_all_shipments()
+    return shipments
 
 @app.get("/shipments/{tracking_number}")
 async def get_shipment(tracking_number: str):
-    try:
-        shipment = await ShipmentService().get_shipment(tracking_number)
-        return shipment
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    shipment = await ShipmentService().get_shipment(tracking_number)
+    if shipment is None:
+        raise HTTPException(status_code=404, detail="Shipment not found")
+    return shipment
