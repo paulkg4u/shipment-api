@@ -14,7 +14,7 @@ class Weather(BaseModel):
     humidity: float
     condition: str
     location: str
-    timestamp: datetime
+    timestamp: float
 
 
 class Shipment(BaseModel):

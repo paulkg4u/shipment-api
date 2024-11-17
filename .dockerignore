@@ -1,0 +1,20 @@
+# Ignore virtual environment files
+.venv/
+
+# Ignore IDE files
+.vscode/
+
+# Ignore bytecode files
+*.pyc
+
+# ENV file
+.env
+
+.venv
+
+#readme
+README.md
+.pytest_cache
+.venv
+tests
+.git

@@ -51,7 +51,6 @@ class ShipmentService:
         )
 
         weather = await self.weather_service.get_weather(shipment_data['receiver_address'].split(",")[1].strip().split(" ")[0])
-
         return Shipment(
             tracking_number=shipment_data["tracking_number"],
             carrier=shipment_data["carrier"],
@@ -77,7 +76,6 @@ class WeatherService:
             response = requests.get(f"{self.base_url}?q={location}&appid={
                                     self.settings.weather_api_key}")
             if response.status_code == 200:
-
                 data = response.json()
                 weather = Weather(
                     temperature=data["main"]["temp"],
@@ -87,6 +85,7 @@ class WeatherService:
                     timestamp=datetime.now().timestamp()
                 )
                 self.cache.set(location, weather.model_dump())
+
                 return weather
             else:
                 return None
