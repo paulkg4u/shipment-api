@@ -11,3 +11,7 @@
 
 #ENV file
 .env
+
+
+# Python Cache
+__pycache__

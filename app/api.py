@@ -10,3 +10,13 @@ app = FastAPI(
 @app.get("/")
 async def root():
     return {"message": "Welcome to the Shipment Tracking Service"}
+
+
+@app.get("/shipments")
+async def get_shipments():
+    return {"message": "Get all shipments"}
+
+
+@app.get("/shipments/{tracking_number}")
+async def get_shipment(tracking_number: str):
+    return {"message": f"Get shipment with tracking number {tracking_number}"}
