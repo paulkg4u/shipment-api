@@ -43,12 +43,14 @@ Create a `.env` file with the following variables:
 ```bash
 OPEN_WEATHER_API_KEY=your_openweather_api_key
 REDIS_HOST=redis        # Uses the service name from docker-compose
+CSV_FILE_PATH=data/shipments.csv
 ```
 
 ### When running components separately
 ```bash
 OPEN_WEATHER_API_KEY=your_openweather_api_key
 REDIS_HOST=localhost    # Uses localhost when Redis runs independently
+CSV_FILE_PATH=data/shipments.csv
 ```
 
 

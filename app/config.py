@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     REDIS_HOST: str
     redis_port: int = 6379
     weather_cache_ttl: int = 7200
-    csv_file_path: str = "data/shipments.csv"
+    CSV_FILE_PATH: str
 
     model_config = SettingsConfigDict(env_file=".env")
 

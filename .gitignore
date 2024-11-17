@@ -15,3 +15,7 @@
 
 # Python Cache
 __pycache__
+
+
+# data
+*.csv

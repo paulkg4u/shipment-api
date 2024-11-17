@@ -10,8 +10,9 @@ from app.cache import WeatherCache
 class ShipmentService:
 
     def __init__(self):
+        self.settings = get_settings()
         self.weather_service = WeatherService()
-        self.csv_file = "data/shipments.csv"
+        self.csv_file = self.settings.CSV_FILE_PATH
         self.shipments = []
 
     async def load_shipments(self):
