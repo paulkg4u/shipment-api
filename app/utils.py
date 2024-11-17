@@ -74,7 +74,7 @@ class WeatherService:
             return Weather(**weather)
         try:
             response = requests.get(f"{self.base_url}?q={location}&appid={
-                                    self.settings.weather_api_key}")
+                                    self.settings.OPEN_WEATHER_API_KEY}")
             if response.status_code == 200:
                 data = response.json()
                 weather = Weather(

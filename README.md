@@ -27,6 +27,13 @@ A Rest API service that provides shipment tracking information along with weathe
 - Redis
 - OpenWeather API key
 
+## Installation
+
+Clone the repository:
+```bash
+git clone https://github.com/paulkg4u/shipment-api.git
+cd shipment-tracking-service
+```
 
 ## Environment Setup
 
@@ -34,18 +41,14 @@ Create a `.env` file with the following variables:
 
 ### When using Docker Compose
 ```bash
-WEATHER_API_KEY=your_openweather_api_key
+OPEN_WEATHER_API_KEY=your_openweather_api_key
 REDIS_HOST=redis        # Uses the service name from docker-compose
-REDIS_PORT=6379
-CSV_FILE_PATH=shipments.csv
 ```
 
 ### When running components separately
 ```bash
-WEATHER_API_KEY=your_openweather_api_key
+OPEN_WEATHER_API_KEY=your_openweather_api_key
 REDIS_HOST=localhost    # Uses localhost when Redis runs independently
-REDIS_PORT=6379
-CSV_FILE_PATH=shipments.csv
 ```
 
 

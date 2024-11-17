@@ -5,8 +5,8 @@ from functools import lru_cache
 class Settings(BaseSettings):
     app_name: str = "Shipment Tracking Service"
     version: str = "1.0.0"
-    weather_api_key: str
-    redis_host: str
+    OPEN_WEATHER_API_KEY: str
+    REDIS_HOST: str
     redis_port: int = 6379
     weather_cache_ttl: int = 7200
     csv_file_path: str = "data/shipments.csv"

@@ -10,7 +10,7 @@ class WeatherCache:
     def __init__(self):
         self.settings = get_settings()
         self.redis = redis.Redis(
-            host=self.settings.redis_host,
+            host=self.settings.REDIS_HOST,
             port=self.settings.redis_port,
             decode_responses=True
         )
