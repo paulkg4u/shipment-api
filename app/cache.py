@@ -32,7 +32,6 @@ class WeatherCache:
         """
         Set weather data in cache
         """
-        data['timestamp'] = datetime.now().timestamp()
         self.redis.set(
             location,
             json.dumps(data),

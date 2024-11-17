@@ -1,10 +1,12 @@
 import requests
 import json
 import csv
+from datetime import datetime
 
 from app.schema import Shipment, Article, Weather
 from app.config import get_settings
 from app.cache import WeatherCache
+
 class ShipmentService:
 
     def __init__(self):
@@ -82,7 +84,7 @@ class WeatherService:
                     humidity=data["main"]["humidity"],
                     condition=f"{data["weather"][0]["description"]}",
                     location=data["name"],
-                    timestamp=data["dt"]
+                    timestamp=datetime.now().timestamp()
                 )
                 self.cache.set(location, weather.model_dump())
                 return weather
